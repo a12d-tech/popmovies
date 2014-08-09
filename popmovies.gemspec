@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Popmovies::VERSION
   spec.authors       = ["gntics"]
   spec.email         = ["alexandre.quard@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Popmovies is a new way to find & watch streaming video}
+  spec.description   = %q{Popmovies is a new way to find & watch streaming video without going online and see boring ads}
   spec.homepage      = ""
   spec.license       = "MIT"
 
