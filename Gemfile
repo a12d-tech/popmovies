@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'curses'
+gem 'nokogiri'
 
 group :development, :test do
   # gem 'rspec' already in the gemspec
