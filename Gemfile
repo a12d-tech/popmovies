@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in popmovies.gemspec
 gemspec
 
+gem 'curses'
+
 group :development, :test do
   # gem 'rspec' already in the gemspec
   gem 'guard'
