@@ -1,17 +1,34 @@
 require 'nokogiri'
 require 'open-uri'
 
+require_relative 'controllers/home_controller'
+require_relative 'controllers/tv_shows_controller'
+require_relative 'ui/template'
+
 module Popmovies
   class Application
+    include Controllers
+    include Ui
 
-    WEBSITE_URL = "http://streaming-series.org/"
-    MENU_SERIES_HASH = Hash.new
-    MENU_SEASONS_HASH = Hash.new
-    MENU_EPISODES_HASH = Hash.new
+    @@WEBSITE_URL = "http://streaming-series.org/"
+
+    def initialize
+      @tmpl = Template.new
+      @home_controller = HomeController.new
+      #@tv_shows_controller = TvShowsController.new
+    end
+
+    def self.WEBSITE_URL
+      @@WEBSITE_URL
+    end
 
     def run
-      hello_msg
-      step1_fetch_series_menu
+      res = @home_controller.index
+      #@tv_shows_controller.index if res
+    end
+
+    def stop
+      @tmpl.close
     end
 
     def hello_msg
