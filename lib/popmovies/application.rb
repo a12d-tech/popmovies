@@ -15,7 +15,7 @@ module Popmovies
     def initialize
       @tmpl = Template.new
       @home_controller = HomeController.new
-      #@tv_shows_controller = TvShowsController.new
+      @tv_shows_controller = TvShowsController.new
     end
 
     def self.WEBSITE_URL
@@ -23,8 +23,9 @@ module Popmovies
     end
 
     def run
-      res = @home_controller.index
-      #@tv_shows_controller.index if res
+      launch_screen_rendered = @home_controller.index
+      tv_show_selected_from_list = @tv_shows_controller.index if launch_screen_rendered
+      #launch seasons controller if tv_show_selected_from_list not empty
     end
 
     def stop
