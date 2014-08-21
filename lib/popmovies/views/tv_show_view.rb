@@ -53,7 +53,7 @@ module Popmovies
           @text = "(next)"
           @selected_index += 1 if @selected_index < @tv_shows.size-1
           inputHandled = true
-        elsif (input == Curses::KEY_UP)  or (input == Curses::KEY_LEFT)
+        elsif (input == Curses::KEY_UP) or (input == Curses::KEY_LEFT)
           @text = "(previous)"
           @selected_index -= 1 if @selected_index > 0
           inputHandled = true
