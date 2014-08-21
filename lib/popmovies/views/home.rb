@@ -30,7 +30,7 @@ module Popmovies
         height = banner_parts.length
         window = Curses::Window.new(height, width,
                  (Curses.lines - height + 3) / 2, (Curses.cols - width) / 2)
-
+        window.keypad true
         banner_parts.each do |line|
           window.addstr line
         end
