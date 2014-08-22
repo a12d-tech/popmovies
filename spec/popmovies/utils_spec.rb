@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative "../lib/popmovies/utils"
+require_relative "../../lib/popmovies/utils"
 
 module Popmovies
   describe Utils do
