@@ -24,6 +24,9 @@ module Popmovies
       end
 
       def fetch_datas
+        # TODO : test it !!
+        # check the resule of fetch_html_page and page.css
+        # depends on Exception thrown by nokogiri and open-uri on Utils class
         page = Utils.fetch_html_page Application.WEBSITE_URL
         html_tv_shows = page.css TV_SHOWS_CSS_SELECTOR
 
@@ -37,7 +40,6 @@ module Popmovies
       end
 
       # "American Horror Story"=>"http://streaming-series.org/american-horror-story/"
-
       # http://streaming-series.org/
       #   american-horror-story/ => seasons list
     end

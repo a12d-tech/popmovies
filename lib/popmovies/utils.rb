@@ -11,6 +11,9 @@ module Popmovies
         end
       rescue Exception => e
         false
+        # TODO : see what kind of exception it returns
+        # if no internet connection found
+        # to exit program with the proper message
       end
     end
 
