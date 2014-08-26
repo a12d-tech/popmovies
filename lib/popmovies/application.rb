@@ -1,9 +1,10 @@
 require 'nokogiri'
 require 'open-uri'
 
+require_relative 'ui/template'
 require_relative 'controllers/home_controller'
 require_relative 'controllers/tv_shows_controller'
-require_relative 'ui/template'
+require_relative 'controllers/seasons_controller'
 
 module Popmovies
   class Application
@@ -16,6 +17,7 @@ module Popmovies
       @tmpl = Template.new
       @home_controller = HomeController.new
       @tv_shows_controller = TvShowsController.new
+      @seasons_controller = SeasonsController.new
     end
 
     def self.WEBSITE_URL
@@ -26,6 +28,7 @@ module Popmovies
       launch_screen_rendered = @home_controller.index
       tv_show_selected_from_list = @tv_shows_controller.index if launch_screen_rendered
       #launch seasons controller if tv_show_selected_from_list not empty
+      @seasons_controller.index tv_show_selected_from_list
     end
 
     def stop
