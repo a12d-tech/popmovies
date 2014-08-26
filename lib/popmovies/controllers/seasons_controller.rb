@@ -15,8 +15,27 @@ module Popmovies
       end
 
       def index tv_show
-        @season_view.render tv_show
+        @seasons = fetch_datas tv_show
+        @season_view.update @seasons
+        @season_view.render
       end
+
+      def fetch_datas tv_show
+        # TODO : test it !!
+        # check the resule of fetch_html_page and page.css
+        # depends on Exception thrown by nokogiri and open-uri on Utils class
+        page = Utils.fetch_html_page tv_show.url
+        html_seasons = page.css SEASONS_CSS_SELECTOR
+
+        seasons = []
+        html_seasons.each do |season|
+          season_title = season.text
+          season_url = season['href']
+          seasons << Season.new(season_title, season_url)
+        end
+        return seasons
+      end
+
     end
   end
 end
