@@ -32,6 +32,7 @@ module Popmovies
           season_title = season.text
           season_url = season['href']
           seasons << Season.new(season_title, season_url)
+          tv_show.seasons << seasons
         end
         return seasons
       end
