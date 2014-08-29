@@ -18,5 +18,12 @@ module Popmovies
       end
     end
 
+    def self.data_type datas
+      if datas.empty?
+        nil
+      else
+        datas.first.class.name.split("::").last #return smthing like Popmovies::Models::Season
+      end
+    end
   end
 end
