@@ -1,5 +1,6 @@
 require 'curses'
 require_relative "../utils"
+require_relative "../application"
 
 module Popmovies
   module Ui
@@ -59,10 +60,9 @@ module Popmovies
           @text = "(previous)"
           @selected_index -= 1 if @selected_index > 0
           inputHandled = true
-      #   elsif (input == 'q') or (input == 'Q')
-      #     @text = "(quit)"
-      #     #@selected_index += 1 if @selected_index < @seasons.size-1
-      #     inputHandled = true
+        elsif (input == 'q') or (input == 'Q')
+          #inputHandled = false
+          Application.exit
         elsif (input == Curses::KEY_ENTER)
           refresh
           close

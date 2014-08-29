@@ -35,6 +35,10 @@ module Popmovies
       @tmpl.close
     end
 
+    def self.exit
+      Kernel.abort
+    end
+
     def hello_msg
       puts "############################################"
       puts "##         Hey what's up buddy?           ##"
