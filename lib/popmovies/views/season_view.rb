@@ -9,6 +9,11 @@ module Popmovies
         @selected = @datas[@selected_index]
       end
 
+      def route_handler
+        Kernel.abort
+        # @router.get :episodes, @selected
+      end
+
     end
   end
 end

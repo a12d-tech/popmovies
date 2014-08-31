@@ -10,8 +10,8 @@ module Popmovies
 
       SEASONS_CSS_SELECTOR = "div.filmborder div.filmcontent div.moviefilm div.movief a"
 
-      def initialize
-        @season_view = SeasonView.new
+      def initialize router
+        @season_view = SeasonView.new router
       end
 
       def index tv_show

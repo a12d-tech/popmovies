@@ -1,12 +1,12 @@
 require 'curses'
 require_relative "../utils"
-require_relative "../application"
 
 module Popmovies
   module Ui
     class View
 
-      def initialize datas=nil
+      def initialize router, datas=nil
+        @router = router
         @window = Curses::Window.new(0, 0, 0, 0)
         @window.keypad true
         @lines = 1
@@ -47,28 +47,28 @@ module Popmovies
         print "Key Up or Down to select a #{data_type}, then press enter"
         print @text, true
 
-        inputHandler @window.getch
+        input_handler @window.getch
       end
 
-      def inputHandler input
-        inputHandled = false
+      def input_handler input
+        input_handled = false
         if (input == Curses::KEY_DOWN) or (input == Curses::KEY_RIGHT)
           @text = "(next)"
           @selected_index += 1 if @selected_index < @datas.size-1
-          inputHandled = true
+          input_handled = true
         elsif (input == Curses::KEY_UP) or (input == Curses::KEY_LEFT)
           @text = "(previous)"
           @selected_index -= 1 if @selected_index > 0
-          inputHandled = true
+          input_handled = true
         elsif (input == 'q') or (input == 'Q')
-          #inputHandled = false
-          Application.exit
+          #input_handled = false
+          #Application.exit
         elsif (input == Curses::KEY_ENTER)
           refresh
           close
-          inputHandled = false
+          input_handled = false
         end
-        render if inputHandled
+        render if input_handled
       end
 
       def reset
@@ -95,7 +95,8 @@ module Popmovies
         reset
         display
         Curses::refresh
-        return @selected
+        # return @selected
+        route_handler
       end
 
     end

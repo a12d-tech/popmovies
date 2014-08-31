@@ -1,12 +1,12 @@
-require_relative '../views/home'
+require_relative '../views/home_view'
 
 module Popmovies
   module Controllers
     class HomeController
       include Views
 
-      def initialize
-        @home_view = Home.new
+      def initialize router
+        @home_view = HomeView.new router
       end
 
       def index

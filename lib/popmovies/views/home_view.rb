@@ -1,8 +1,6 @@
-require_relative '../ui/view'
-
 module Popmovies
   module Views
-    class Home # < Ui::View
+    class HomeView
       
       BANNER = %Q[
 88""Yb  dP"Yb  88""Yb 8b    d8  dP"Yb  Yb    dP 88 888888 .dP"Y8
@@ -13,10 +11,15 @@ module Popmovies
 
                                             by gntics]
 
+      def initialize router
+        @router = router
+      end
+
       def render
         display_welcome
         Curses.refresh
-        return true
+        # return true
+        @router.get :tv_shows
       end
 
       def display_welcome

@@ -1,10 +1,6 @@
-require 'json'
-
 require_relative '../utils'
 require_relative '../views/tv_show_view'
 require_relative '../models/tv_show'
-
-require_relative "../application"
 
 module Popmovies
   module Controllers
@@ -12,11 +8,13 @@ module Popmovies
       include Views
       include Models
 
+      WEBSITE_URL = "http://streaming-series.org/"
+
       TV_SHOWS_CSS_SELECTOR = "div.sidebarborder div.sidebar-right ul li.cat-item a"
 
-      def initialize
+      def initialize router
         @tv_shows = fetch_datas
-        @tv_show_view = TvShowView.new @tv_shows
+        @tv_show_view = TvShowView.new router, @tv_shows
       end
 
       def index
@@ -27,7 +25,7 @@ module Popmovies
         # TODO : test it !!
         # check the resule of fetch_html_page and page.css
         # depends on Exception thrown by nokogiri and open-uri on Utils class
-        page = Utils.fetch_html_page Application.WEBSITE_URL
+        page = Utils.fetch_html_page WEBSITE_URL
         html_tv_shows = page.css TV_SHOWS_CSS_SELECTOR
 
         tv_shows = []
