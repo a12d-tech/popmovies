@@ -10,7 +10,7 @@ module Popmovies
       end
 
       def route_handler
-        Kernel.abort
+        @router.get :links, @selected
       end
 
     end

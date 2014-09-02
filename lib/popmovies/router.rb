@@ -2,6 +2,7 @@ require_relative 'controllers/home_controller'
 require_relative 'controllers/tv_shows_controller'
 require_relative 'controllers/seasons_controller'
 require_relative 'controllers/episodes_controller'
+require_relative 'controllers/links_controller'
 
 module Popmovies
   class Router
@@ -12,8 +13,10 @@ module Popmovies
       @tv_shows_controller = TvShowsController.new self
       @seasons_controller = SeasonsController.new self
       @episodes_controller = EpisodesController.new self
+      @links_controller = LinksController.new self
       @tv_show_selected = nil
       @season_selected = nil
+      @episode_selected = nil
     end
 
     def get action, model=nil
@@ -29,6 +32,9 @@ module Popmovies
         @season_selected = model
         # maybe we dont need model argument because we have @tv_show_selected.seasons
         episodes_menu
+      when :links
+        @episode_selected = model
+        links_menu
       end
     end
 
@@ -46,6 +52,10 @@ module Popmovies
 
     def episodes_menu
       @episodes_controller.index @season_selected
+    end
+
+    def links_menu
+      @links_controller.index @episode_selected
     end
 
   end
