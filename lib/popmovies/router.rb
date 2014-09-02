@@ -12,8 +12,8 @@ module Popmovies
       @tv_shows_controller = TvShowsController.new self
       @seasons_controller = SeasonsController.new self
       @episodes_controller = EpisodesController.new self
-      @tv_show = nil
-      @season = nil
+      @tv_show_selected = nil
+      @season_selected = nil
     end
 
     def get action, model=nil
@@ -23,11 +23,11 @@ module Popmovies
       when :tv_shows
         tv_shows_menu
       when :seasons
-        @tv_show = model
+        @tv_show_selected = model
         seasons_menu
       when :episodes
-        @season = model
-        # maybe we dont need model argument because we have @tv_show.seasons
+        @season_selected = model
+        # maybe we dont need model argument because we have @tv_show_selected.seasons
         episodes_menu
       end
     end
@@ -41,11 +41,11 @@ module Popmovies
     end
 
     def seasons_menu
-      @seasons_controller.index @tv_show
+      @seasons_controller.index @tv_show_selected
     end
 
     def episodes_menu
-      @episodes_controller.index @season
+      @episodes_controller.index @season_selected
     end
 
   end
