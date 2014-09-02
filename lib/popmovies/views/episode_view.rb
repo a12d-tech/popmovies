@@ -2,15 +2,15 @@ require_relative "../ui/view"
 
 module Popmovies
   module Views
-    class SeasonView < Ui::View
+    class EpisodeView < Ui::View
 
-      def update seasons
-        @datas = seasons
+      def update episodes
+        @datas = episodes
         @selected = @datas[@selected_index]
       end
 
       def route_handler
-        @router.get :episodes, @selected
+        Kernel.abort
       end
 
     end
