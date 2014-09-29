@@ -8,6 +8,9 @@ module Popmovies
       def initialize router, datas=nil
         @router = router
         @window = Curses::Window.new(0, 0, 0, 0)
+        # options if small term window
+        @window.scrollok true
+        @window.idlok true
         @window.keypad true
         @lines = 1
         @columns = 3

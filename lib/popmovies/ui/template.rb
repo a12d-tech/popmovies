@@ -10,6 +10,7 @@ module Popmovies
         Curses.crmode
         Curses.stdscr.keypad true
         Curses.noecho
+        Curses.resizeterm(200, 200)
       end
 
       def close
