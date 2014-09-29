@@ -36,11 +36,10 @@ module Popmovies
       def display
         @window.setpos @lines, @columns
         data_type = Utils.data_type @datas
-        print "--> #{@datas.size} #{data_type} found"
+        print "--> #{@datas.size} #{data_type}(s) found"
 
         @datas.each_with_index do |data,index|
           highlight = (index == @selected_index) ? true : false
-          #highlight = false
           print " - #{data.title}", highlight
         end
 
@@ -61,8 +60,16 @@ module Popmovies
           @selected_index -= 1 if @selected_index > 0
           input_handled = true
         elsif (input == 'q') or (input == 'Q')
-          #input_handled = false
-          #Application.exit
+          input_handled = false
+          refresh
+          close
+          Kernel.abort
+        # elsif (input == 'b') or (input == 'B')
+          # input_handled = false
+          # back_route_handler
+
+          # refresh
+          # close because it kill the window instance
         elsif (input == Curses::KEY_ENTER)
           refresh
           close
