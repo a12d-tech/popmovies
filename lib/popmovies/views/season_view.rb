@@ -13,6 +13,11 @@ module Popmovies
         @router.get :episodes, @selected
       end
 
+      def back_route_handler
+        # do nothing
+        # @router.get :tv_shows
+      end
+
     end
   end
 end

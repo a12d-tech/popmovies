@@ -8,6 +8,12 @@ module Popmovies
         @router.get :seasons, @selected
       end
 
+      def back_route_handler
+        # do nothing
+        # @router.get :home
+        # return
+      end
+
     end
   end
 end
