@@ -19,9 +19,5 @@ module Popmovies
       @tmpl.close
     end
 
-    def self.exit
-      Kernel.abort
-    end
-
   end
 end

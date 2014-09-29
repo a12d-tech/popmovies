@@ -37,9 +37,6 @@ module Popmovies
         return tv_shows
       end
 
-      # "American Horror Story"=>"http://streaming-series.org/american-horror-story/"
-      # http://streaming-series.org/
-      #   american-horror-story/ => seasons list
     end
   end
 end
