@@ -13,19 +13,12 @@ module Popmovies
       end
 
       def show
-        begin
-          display
-        ensure
-          # @window.close
-        end
-      end
-
-      def display
         @window.addstr @message
         @window.refresh
         @window.getch
+        @window.close
       end
-      
+
     end
   end
 end

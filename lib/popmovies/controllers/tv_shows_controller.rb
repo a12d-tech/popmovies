@@ -1,6 +1,7 @@
 require_relative '../utils'
 require_relative '../views/tv_show_view'
 require_relative '../models/tv_show'
+require_relative '../error'
 
 module Popmovies
   module Controllers
@@ -21,20 +22,26 @@ module Popmovies
         @tv_show_view.render
       end
 
-      def fetch_datas
-        # TODO : test it !!
-        # check the resule of fetch_html_page and page.css
-        # depends on Exception thrown by nokogiri and open-uri on Utils class
-        page = Utils.fetch_html_page WEBSITE_URL
-        html_tv_shows = page.css TV_SHOWS_CSS_SELECTOR
+      private
 
-        tv_shows = []
-        html_tv_shows.each do |show|
-          tv_show_title = show.text
-          tv_show_url = show['href']
-          tv_shows << TvShow.new(tv_show_title, tv_show_url)
+      def fetch_datas
+        begin
+          page = Utils.fetch_html_page WEBSITE_URL
+          html_tv_shows = page.css TV_SHOWS_CSS_SELECTOR
+
+          raise RemoteError, "It seems broken! Sorry" if html_tv_shows.empty?
+
+          tv_shows = []
+          html_tv_shows.each do |show|
+            tv_show_title = show.text
+            tv_show_url = show['href']
+            tv_shows << TvShow.new(tv_show_title, tv_show_url)
+          end
+          return tv_shows
+
+        rescue RemoteError, ConnectionError => e
+          e.handle
         end
-        return tv_shows
       end
 
     end

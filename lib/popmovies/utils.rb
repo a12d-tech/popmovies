@@ -1,6 +1,5 @@
 require 'nokogiri'
 require 'open-uri'
-require_relative "views/error_view"
 
 module Popmovies
   class Utils
@@ -12,10 +11,7 @@ module Popmovies
           config.nonet
         end
       rescue SocketError => e
-        ErrorView.new("Check your internet connection!").show
-        # puts e.message
-        # puts "Check your internet connection!"
-        Kernel.abort
+        raise ConnectionError, "Check your internet connection!"
       end
     end
 
