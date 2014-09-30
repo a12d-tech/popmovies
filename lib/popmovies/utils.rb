@@ -3,7 +3,6 @@ require 'open-uri'
 
 module Popmovies
   class Utils
-    include Views
 
     def self.fetch_html_page url
       begin
