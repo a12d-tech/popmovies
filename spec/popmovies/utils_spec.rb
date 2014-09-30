@@ -9,12 +9,10 @@ module Popmovies
   include Models
 
   describe Utils do
+    it { expect(Utils).to respond_to(:data_type) }
+    it { expect(Utils).to respond_to(:fetch_html_page) }
 
     describe "#data_type" do
-      it "method present?" do
-        expect(Utils).to respond_to(:data_type)
-      end
-
       it "returns class name of first object in array" do
         array = []
         3.times { |i| array << TvShow.new("Dallas", "url_#{i}")}
@@ -28,10 +26,6 @@ module Popmovies
     end
 
     describe "#fetch_html_page" do
-      it "method present?" do
-        expect(Utils).to respond_to(:fetch_html_page)
-      end
-
       context "when bad url" do
         # before { allow_any_instance_of(ErrorView).to receive(:show).and_return(true) }
         # before { allow(Kernel).to receive(:abort).and_return(true) }
