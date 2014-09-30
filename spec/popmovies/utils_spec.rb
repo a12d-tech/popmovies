@@ -1,11 +1,6 @@
 require 'spec_helper'
-require_relative "../../lib/popmovies/utils"
-require_relative "../../lib/popmovies/models/tv_show"
-require_relative "../../lib/popmovies/views/error_view"
-require_relative "../../lib/popmovies/error"
 
 module Popmovies
-  include Views
   include Models
 
   describe Utils do
