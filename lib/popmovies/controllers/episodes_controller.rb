@@ -9,27 +9,21 @@ module Popmovies
       include Models
 
       def initialize router
-        super()
         @episode_view = EpisodeView.new router
       end
 
       def index season
-        @episodes = fetch_datas(season.url, Config::WEB[:episodes_css_selector]){
+        @episodes = fetch_datas(season.url, Config::WEB[:episodes_css_selector]) do |html_tags|
           # specific tmp !! to remove
-          @html_selected_tags = @html_selected_tags.xpath('./a')
+          html_tags = html_tags.xpath('./a')
 
-          episodes = []
+          tmp = html_tags.map { |episode| Episode.new(episode.css("span").text, episode['href']) }
+          # TODO add episodes to tv_show.episode
+          # tv_show.seasons << seasons
+
           # ugly but no choice
-          episodes << Episode.new("Episode 1", season.url)
-          @html_selected_tags.each do |episode|
-            episode_title = episode.css("span").text
-            episode_url = episode['href']
-            episodes << Episode.new(episode_title, episode_url)
-            # TODO add episodes to tv_show.episode
-            # tv_show.seasons << seasons
-          end
-          @datas = episodes
-        }
+          [Episode.new("Episode 1", season.url), tmp].flatten
+        end
         @episode_view.update @episodes
         @episode_view.render
       end

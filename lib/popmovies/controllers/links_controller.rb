@@ -9,19 +9,15 @@ module Popmovies
       include Models
 
       def initialize router
-        super()
         @link_view = LinkView.new router
       end
 
       def index episode
-        @links = fetch_datas(episode.url, Config::WEB[:links_css_selector]){
+        @links = fetch_datas(episode.url, Config::WEB[:links_css_selector]) do |html_tags|
           # filter links
-          @html_selected_tags = @html_selected_tags.xpath("./p//iframe[contains(@src,'embed')]")
-
-          links = []
-          @html_selected_tags.each { |link_url| links << Link.new(link_url['src']) }
-          @datas = links
-        }
+          html_tags = html_tags.xpath("./p//iframe[contains(@src,'embed')]")
+          html_tags.map { |link_url| Link.new(link_url['src']) }
+        end
         @link_view.update @links
         @link_view.render
       end

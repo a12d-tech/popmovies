@@ -11,19 +11,10 @@ module Popmovies
       include Models
 
       def initialize router
-        super()
         # call fecth_data(url,css_selector){ &block }
-        @tv_shows = fetch_datas(Config::WEB[:endpoint],Config::WEB[:tv_shows_css_selector]){
-          tv_shows = []
-          @html_selected_tags.each do |show|
-            tv_show_title = show.text
-            tv_show_url = show['href']
-            tv_shows << TvShow.new(tv_show_title, tv_show_url)
-          end
-          # can not insert a return here so we go through @datas
-          # which is returned at the end of fetch_data method
-          @datas = tv_shows
-        }
+        @tv_shows = fetch_datas(Config::WEB[:endpoint],Config::WEB[:tv_shows_css_selector]) do |html_tags|
+          html_tags.map { |show| TvShow.new(show.text,show['href']) }
+        end
         @tv_show_view = TvShowView.new router, @tv_shows
       end
 

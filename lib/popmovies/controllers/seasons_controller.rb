@@ -9,21 +9,14 @@ module Popmovies
       include Models
 
       def initialize router
-        super()
         @season_view = SeasonView.new router
       end
 
       def index tv_show
-        @seasons = fetch_datas(tv_show.url,Config::WEB[:seasons_css_selector]){
-          seasons = []
-          @html_selected_tags.each do |season|
-            season_title = season.text
-            season_url = season['href']
-            seasons << Season.new(season_title, season_url)
-            tv_show.seasons << seasons
-          end
-         @datas = seasons
-        }
+        @seasons = fetch_datas(tv_show.url,Config::WEB[:seasons_css_selector]) do |html_tags|
+          html_tags.map { |season| Season.new(season.text, season['href']) }
+          # tv_show.seasons << seasons
+        end
         @season_view.update @seasons
         @season_view.render
       end
