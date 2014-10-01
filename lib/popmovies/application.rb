@@ -1,5 +1,6 @@
 require_relative 'ui/template'
 require_relative 'router'
+require_relative 'config'
 
 module Popmovies
   class Application

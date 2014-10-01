@@ -8,15 +8,13 @@ module Popmovies
       include Views
       include Models
 
-      SEASONS_CSS_SELECTOR = "div.filmborder div.filmcontent div.moviefilm div.movief a"
-
       def initialize router
         super()
         @season_view = SeasonView.new router
       end
 
       def index tv_show
-        @seasons = fetch_datas(tv_show.url,SEASONS_CSS_SELECTOR){
+        @seasons = fetch_datas(tv_show.url,Config::WEB[:seasons_css_selector]){
           seasons = []
           @html_selected_tags.each do |season|
             season_title = season.text

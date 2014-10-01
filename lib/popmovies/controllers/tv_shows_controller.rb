@@ -10,13 +10,10 @@ module Popmovies
       include Views
       include Models
 
-      WEBSITE_URL = "http://streaming-series.org/"
-      TV_SHOWS_CSS_SELECTOR = "div.sidebarborder div.sidebar-right ul li.cat-item a"
-
       def initialize router
         super()
         # call fecth_data(url,css_selector){ &block }
-        @tv_shows = fetch_datas(WEBSITE_URL,TV_SHOWS_CSS_SELECTOR){
+        @tv_shows = fetch_datas(Config::WEB[:endpoint],Config::WEB[:tv_shows_css_selector]){
           tv_shows = []
           @html_selected_tags.each do |show|
             tv_show_title = show.text
