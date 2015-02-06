@@ -1,3 +1,5 @@
+require_relative '../ui/view'
+
 module Popmovies
   module Views
     class HomeView
@@ -8,38 +10,42 @@ module Popmovies
 88"""  Yb   dP 88"""  88YbdP88 Yb   dP   YbdP   88 88""   o.`Y8b
 88      YbodP  88     88 YY 88  YbodP     YP    88 888888 8bodP'
                                                                 
-
+                                                                
                                             by gntics]
 
-      def initialize router
-        @router = router
+      def initialize
+        @banner_parts = BANNER.split("\n")
+        banner_width = @banner_parts[1].length
+        banner_height = @banner_parts.size
+
+        @window =
+          Curses::Window.new(
+            banner_height,
+            banner_width,
+            (Curses.lines - banner_height + 3) / 2,
+            (Curses.cols - banner_width) / 2
+          )
+
+        @window.keypad(true)
       end
 
       def render
-        display_welcome
+        display_banner
         Curses.refresh
-        # return true
-        @router.get :tv_shows
       end
 
-      def display_welcome
-        banner_parts = BANNER.split "\n"
-        widths = []
-        banner_parts.each do |line|
-          widths << line.length
-        end
+      private
 
-        width = widths.max
-        height = banner_parts.length
-        window = Curses::Window.new(height, width,
-                 (Curses.lines - height + 3) / 2, (Curses.cols - width) / 2)
-        window.keypad true
-        banner_parts.each do |line|
-          window.addstr line
-        end
-        window.refresh
-        window.getch
-        window.close
+      def display_banner
+        @banner_parts.each { |line| @window.addstr(line) }
+
+        catch_input_and_clear
+      end
+
+      def catch_input_and_clear
+        @window.refresh
+        @window.getch
+        @window.close
       end
 
     end

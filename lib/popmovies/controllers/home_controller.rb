@@ -2,15 +2,17 @@ require_relative '../views/home_view'
 
 module Popmovies
   module Controllers
-    class HomeController
+    class HomeController < Controller
       include Views
 
-      def initialize router
-        @home_view = HomeView.new router
+      def initialize
+        super
+        @home_view = HomeView.new
       end
 
-      def index
+      def render
         @home_view.render
+        @router.trigger(:rendered)
       end
 
     end

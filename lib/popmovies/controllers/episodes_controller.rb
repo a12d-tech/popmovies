@@ -1,4 +1,3 @@
-require_relative '../utils'
 require_relative '../views/episode_view'
 require_relative '../models/episode'
 
@@ -7,18 +6,29 @@ module Popmovies
     class EpisodesController < Controller
       include Views
       include Models
+      include Config
 
-      def initialize router
-        @episode_view = EpisodeView.new router
+      CSS_SELECTOR = WEB[:episodes_css_selector]
+
+      def initialize
+        super
+        @episode_view = EpisodeView.new
       end
 
-      def index season
-        @episodes = fetch_datas(season.url, Config::WEB[:episodes_css_selector]) do |html_tags|
-          tmp = html_tags.map { |episode| Episode.new(episode.css("span").text, episode['href']) }
-          [Episode.new("Episode 1", season.url), tmp].flatten
-        end
-        @episode_view.update @episodes
+      def render(season)
+        @episodes =
+          fetch_datas(season.url, CSS_SELECTOR) do |html_tags|
+            episodes = html_tags.map do |episode|
+              Episode.new(episode.css("span").text, episode['href'])
+            end
+
+            [Episode.new("Episode 1", season.url), episodes].flatten
+          end
+
+        @episode_view.populate_with(@episodes)
         @episode_view.render
+
+        @router.trigger(:selected, @episode_view.selected)
       end
 
     end

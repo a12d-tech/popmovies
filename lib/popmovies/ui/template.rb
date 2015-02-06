@@ -1,5 +1,3 @@
-require 'curses'
-
 module Popmovies
   module Ui
     class Template
@@ -8,9 +6,8 @@ module Popmovies
         Curses.init_screen
         Curses.start_color
         Curses.crmode
-        Curses.stdscr.keypad true
+        Curses.stdscr.keypad(true)
         Curses.noecho
-        # Curses.resizeterm(200, 200)
       end
 
       def close

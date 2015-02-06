@@ -1,25 +1,35 @@
-require_relative '../utils'
 require_relative '../views/tv_show_view'
 require_relative '../models/tv_show'
-require_relative '../error'
-require_relative 'controller'
 
 module Popmovies
   module Controllers
     class TvShowsController < Controller
       include Views
       include Models
+      include Config
 
-      def initialize router
-        # call fecth_data(url,css_selector){ &block }
-        @tv_shows = fetch_datas(Config::WEB[:endpoint],Config::WEB[:tv_shows_css_selector]) do |html_tags|
-          html_tags.map { |show| TvShow.new(show.text,show['href']) }
-        end
-        @tv_show_view = TvShowView.new router, @tv_shows
+      URL          = WEB[:endpoint]
+      CSS_SELECTOR = WEB[:tv_shows_css_selector]
+
+      def initialize
+        super
+
+        @tv_shows =
+          fetch_datas(URL, CSS_SELECTOR) { |html_tags| parseHtml(html_tags) }
+
+        @tv_show_view = TvShowView.new(@tv_shows)
       end
 
-      def index
+
+      def render
         @tv_show_view.render
+        @router.trigger(:selected, @tv_show_view.selected)
+      end
+
+      private
+
+      def parseHtml(html_tags)
+        html_tags.map { |show| TvShow.new(show.text, show['href']) }
       end
 
     end
