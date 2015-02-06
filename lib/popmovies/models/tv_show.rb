@@ -2,12 +2,11 @@ module Popmovies
   module Models
     class TvShow
 
-      attr_accessor :title, :url, :seasons
+      attr_accessor :title, :url
 
-      def initialize title, url
+      def initialize(title, url)
         @title = title
         @url = url
-        @seasons = []
       end
 
     end

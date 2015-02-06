@@ -4,7 +4,7 @@ module Popmovies
 
       attr_accessor :title, :url
 
-      def initialize title, url
+      def initialize(title, url)
         @title = title
         @url = url
       end
